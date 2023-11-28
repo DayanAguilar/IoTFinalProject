@@ -1,0 +1,85 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "e. s. p.",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "que cosas puedo preguntar",
+                        "que se puede realizar",
+                        "que puedo hacer",
+                        "ayuda "
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "cerrar",
+                        "cancelar",
+                        "salir"
+                    ]
+                },
+                {
+                    "name": "TurnOnIntent",
+                    "slots": [],
+                    "samples": [
+                        "da de comer ",
+                        "dale de comida",
+                        "alimenta al animal"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "TurnOffIntent",
+                    "slots": [],
+                    "samples": [
+                        "para de alimentar",
+                        "deja de dar de comer",
+                        "deja de alimentar"
+                    ]
+                },
+                {
+                    "name": "QueryStateIntent",
+                    "slots": [],
+                    "samples": [
+                        "estado"
+                    ]
+                },
+                {
+                    "name": "InterruptIntent",
+                    "slots": [],
+                    "samples": [
+                        "parar"
+                    ]
+                },
+                {
+                    "name": "StockIntent",
+                    "slots": [],
+                    "samples": [
+                        "cuanta comida hay en el dispenser",
+                        "cuanta comida queda en el container",
+                        "cuanta comida sobra",
+                        "cuanta comida queda"
+                    ]
+                },
+                {
+                    "name": "FoodInPlateIntent",
+                    "slots": [],
+                    "samples": [
+                        "cuanta comida queda en el plato",
+                        "cuanta comida tiene el plato"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

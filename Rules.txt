@@ -1,0 +1,3 @@
+dispenser/rule
+
+SELECT state.reported.stock as stock, timestamp() as time, state.reported.distance as distance, state.reported.dispenserState as state, topic(3) as thingName FROM '$aws/things/+/shadow/update' WHERE state.reported.dispenserState='On'
