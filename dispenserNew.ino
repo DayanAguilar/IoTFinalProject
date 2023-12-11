@@ -1,6 +1,5 @@
 #include <ArduinoJson.h>
 #include <WiFiClientSecure.h>
-#include <WiFiManager.h>
 #include <PubSubClient.h>
 #include <ESP32Servo.h>
 #include "AmazonVariables.h"
@@ -8,12 +7,12 @@
 #define DT 13   // DT de HX711 a pin digital 2
 #define SCK 14  // SCK de HX711 a pin digital 3
 
-WiFiManager wm;
- extern const char PRIVATE_KEY[] PROGMEM;
+
+extern const char PRIVATE_KEY[] PROGMEM;
 extern const char CERTIFICATE[] PROGMEM;
 extern const char AMAZON_ROOT_CA1[] PROGMEM;
-const char *WIFI_SSID = "ZTE-e1b435";
-const char *WIFI_PASS = "b805abe1";
+const char *WIFI_SSID = "POCO X3 Pro";
+const char *WIFI_PASS = "mateo1234";
 
 const char *ENDPOINT = "assa27mawgrqi-ats.iot.us-east-1.amazonaws.com";
 const int PORT = 8883;
@@ -71,8 +70,8 @@ void setDispenserState(String str) {
     digitalWrite(LED_BUILTIN, LOW);
 
   } else if (dispenserState == "On") {
-    servo.write(90);
-    delay(1000);
+    servo.write(180);
+    delay(3000);
     servo.write(0);
     digitalWrite(LED_BUILTIN, HIGH);
     distance = 0.01723 * readUltrasonicDistance(TRIG, ECHO);
@@ -124,15 +123,6 @@ void callback(char *topic, byte *payload, unsigned int length) {
     }
   }
 }
-void connectWifi() {
-  bool res;
-  res = wm.autoConnect(WIFI_SSID, WIFI_PASS);
-  if (!res) {
-    Serial.println("Failed to connect, connect to Dispenser network to configure wifi network");
-  } else {
-    Serial.println("Connected");
-  }
-}
 
 boolean mqttClientConnect() {
   if (!mqttClient.connected()) {
@@ -151,7 +141,18 @@ boolean mqttClientConnect() {
   }
   return mqttClient.connected();
 }
-void setMqttConecction() {
+
+void connectToWiFi() {
+  Serial.print("Connecting to ");
+  Serial.print(WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(200);
+    Serial.print(".");
+  }
+  Serial.println(" DONE!");
+}
+void setMqttConnection() {
   wiFiClient.setCACert(AMAZON_ROOT_CA1);
   wiFiClient.setCertificate(CERTIFICATE);
   wiFiClient.setPrivateKey(PRIVATE_KEY);
@@ -165,8 +166,8 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   servo.attach(SERVO_PIN);
-  connectWifi();
-  setMqttConecction();
+  connectToWiFi();
+  setMqttConnection();
   cell.begin(DT, SCK);
   cell.set_scale(465.f);
   cell.tare();
